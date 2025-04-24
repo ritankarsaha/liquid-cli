@@ -1,3 +1,4 @@
+mod transfer_poc;
 use anyhow::Result;
 use clap::{Parser, Subcommand};
 use reqwest::blocking::Client;
@@ -13,6 +14,9 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
+
+    TransferPoc,
+
     // Generating a new Liquid address
     Address {
         /// Generating a new address
@@ -336,6 +340,9 @@ fn main() -> Result<()> {
         }
         Commands::Wallet { create, load, list } => {
             handle_wallet_command(create.clone(), load.clone(), *list)?;
+        }
+        Commands::TransferPoc => {
+            transfer_poc::run_transfer_poc()?;
         }
     }
 
