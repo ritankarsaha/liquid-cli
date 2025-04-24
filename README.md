@@ -306,6 +306,95 @@ Bitcoin Asset ID: 144c654344aa716d6f3abcc1ca90e5641e4e2a7f633bc09fe3baf64585819a
 
 This shows that the bitcoin asset has been properly created.
 
+Now, let's focus on the proof of concept  --- Demonstrating transferring an asset between two liquid addresses using the libraries that would be incorporated into Angor.
+
+Ensure you have the wallet named `ritankar_wallet` created and loaded. If not follow the steps -- 
+
+```bash
+cargo run -- wallet --create ritankar_wallet
+```
+
+Now, run the following commands below -- 
+
+```bash
+ cargo run -- transfer-poc
+```
+
+We will be getting an output like -- 
+
+```bash
+ritankar-saha@ritankar-saha-Inspiron-15-3511:~/liquid-cli$ cargo run -- transfer-poc
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.05s
+     Running `target/debug/liquid-cli transfer-poc`
+Starting Liquid Asset Transfer Proof of Concept
+-----------------------------------------------
+
+Step 1: Generating two addresses
+Address 1: tlq1qqw3agna4kvc6y85g3cly8d8xxruvwm6pu6kjap47234jydhsg76j0gpxreckwq7sp3yutrvy6naa8jcdsavzw5wl8gx02mev8
+Address 2: tlq1qqv7s0ykdha229ju7hj4pkajhx9lzu6z24ymdrd5a3l3t0x3cjsf622nvezmygqzuz3pl9csdqkc6zr3rs9fz2myccn0qx66dw
+
+Step 2: Checking for existing assets
+
+Step 3: No assets with balance found. Attempting to issue a new asset...
+Failed to issue asset: RPC error (-4): Insufficient funds
+Will try to use the bitcoin asset for demonstration
+Using bitcoin asset: 144c654344aa716d6f3abcc1ca90e5641e4e2a7f633bc09fe3baf64585819a49
+
+Step 4: Transferring asset to the second address
+Asset ID: 144c654344aa716d6f3abcc1ca90e5641e4e2a7f633bc09fe3baf64585819a49
+From: tlq1qqw3agna4kvc6y85g3cly8d8xxruvwm6pu6kjap47234jydhsg76j0gpxreckwq7sp3yutrvy6naa8jcdsavzw5wl8gx02mev8
+To: tlq1qqv7s0ykdha229ju7hj4pkajhx9lzu6z24ymdrd5a3l3t0x3cjsf622nvezmygqzuz3pl9csdqkc6zr3rs9fz2myccn0qx66dw
+Transfer failed: RPC error (-6): Insufficient funds
+
+Alternative demonstration: Simulating a transfer
+Simulated transfer of asset 144c654344aa716d6f3abcc1ca90e5641e4e2a7f633bc09fe3baf64585819a49 from tlq1qqw3agna4kvc6y85g3cly8d8xxruvwm6pu6kjap47234jydhsg76j0gpxreckwq7sp3yutrvy6naa8jcdsavzw5wl8gx02mev8 to tlq1qqv7s0ykdha229ju7hj4pkajhx9lzu6z24ymdrd5a3l3t0x3cjsf622nvezmygqzuz3pl9csdqkc6zr3rs9fz2myccn0qx66dw
+Simulated transaction ID: 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+```
+![image](https://github.com/user-attachments/assets/00128db5-c8f3-463a-90b3-3e18d3d4d091)
+
+Same can be done using the shell script I have created and added. Fix the permissions of the shell script properly first. Then run,
+
+```bash
+./liquid_transfer_poc.sh
+```
+
+You will be getting the following output
+
+```bash
+===== Liquid Asset Transfer Proof of Concept =====
+-----------------------------------------------
+
+Step 1: Generating two addresses
+Address 1: tlq1qqtvrzkcpmm7dlwhfmxd5nvcf9wlae5d6yvslt2x6rqpeu88uv43ekyu97zh0ex9afnfnr2uh0l4dx82657cpj4wcv0s5wl4gy
+Address 2: tlq1qqdlk38aax3lvq6vzkyuydpksrd9kcpwq9nuaevxg84sal7k5apve46n34fc40ewemtdqk257p0uxjgmq0gyzuuczuc8akpfe6
+
+Step 2: Checking for existing assets
+{
+  "bitcoin": 0.00000000
+}
+
+Step 3: No assets with balance found. Attempting to issue a new asset...
+Failed to issue asset: Insufficient funds
+Will try to use the bitcoin asset for demonstration
+Using bitcoin asset: 144c654344aa716d6f3abcc1ca90e5641e4e2a7f633bc09fe3baf64585819a49
+
+Step 4: Transferring asset to the second address
+Asset ID: 144c654344aa716d6f3abcc1ca90e5641e4e2a7f633bc09fe3baf64585819a49
+From: tlq1qqtvrzkcpmm7dlwhfmxd5nvcf9wlae5d6yvslt2x6rqpeu88uv43ekyu97zh0ex9afnfnr2uh0l4dx82657cpj4wcv0s5wl4gy
+To: tlq1qqdlk38aax3lvq6vzkyuydpksrd9kcpwq9nuaevxg84sal7k5apve46n34fc40ewemtdqk257p0uxjgmq0gyzuuczuc8akpfe6
+Transfer failed: 
+This is expected because the wallet has insufficient funds at present
+
+Alternative demonstration: Simulating a transfer
+Simulated transfer of asset 144c654344aa716d6f3abcc1ca90e5641e4e2a7f633bc09fe3baf64585819a49 from tlq1qqtvrzkcpmm7dlwhfmxd5nvcf9wlae5d6yvslt2x6rqpeu88uv43ekyu97zh0ex9afnfnr2uh0l4dx82657cpj4wcv0s5wl4gy to tlq1qqdlk38aax3lvq6vzkyuydpksrd9kcpwq9nuaevxg84sal7k5apve46n34fc40ewemtdqk257p0uxjgmq0gyzuuczuc8akpfe6
+Simulated transaction ID: 1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef
+```
+
+NOTE - The transfer of assets from one liquid address to another liquid address fails, and the asset creation also fails as well bacasue the wallet has insufficient funds and this is quite expected. However we have used the `bitcoin asset` over here for a mere demonstartion purpose. The logic and the proof of concept is all there in the code.
+
+
+
+
 
 
 
