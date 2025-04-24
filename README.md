@@ -69,6 +69,27 @@ The output will be something like this --
   "warnings": ""
 }
 ```
+
+If you are connected to the main liquidv1 chain of the blockchain you will be getting outputs more like this-- 
+NOTE -- (This is out of the scope of the competency test)
+```bash
+./elementsd -printtoconsole
+```
+Output Logs Screenshot --
+
+<img width="1368" alt="Screenshot 2025-04-25 at 4 51 22 AM" src="https://github.com/user-attachments/assets/66861ab4-1b8f-40c0-ab85-c17440465e6f" />
+<img width="1360" alt="Screenshot 2025-04-25 at 4 52 04 AM" src="https://github.com/user-attachments/assets/57b4be65-a9fe-4e90-9af3-7c8d58cef25d" />
+
+And on getting the blockchain info, the outputs would be looking something like this -- 
+
+```bash
+elements-cli getblockchaininfo
+```
+
+Output Logs Screenshot --
+<img width="1367" alt="Screenshot 2025-04-25 at 4 54 27 AM" src="https://github.com/user-attachments/assets/4534dbc4-8824-44af-b109-672cf6a57141" />
+<img width="1461" alt="Screenshot 2025-04-25 at 4 54 48 AM" src="https://github.com/user-attachments/assets/22f98002-6f7d-498a-a0f1-e737cdd361d2" />
+
 Now to create a new wallet and load it follow the underlying command -- 
 
 ```bash
